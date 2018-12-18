@@ -47,5 +47,6 @@ namespace App.Entities
         }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeSalary> EmployeeSalaries { get; set; }
+        public DbSet<PayChecks> PayChecks { get; set; }
     }
 }

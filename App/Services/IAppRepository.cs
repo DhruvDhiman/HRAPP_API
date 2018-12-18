@@ -25,6 +25,8 @@ namespace App.Services
         void AddPayCheck(PayChecks payChecks);
 
         IEnumerable<PayChecks> GetPayCheck();
+
+        PayChecks GetPayCheck(Guid txnId);
         bool Save();
     }
 }

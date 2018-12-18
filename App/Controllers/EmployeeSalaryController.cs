@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using App.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace App.Controllers
 {
-    [Route("api/employee/{EmpId}/salary")]
+    [EnableCors("AllowCors"), Route("api/employee/{EmpId}/salary")]
     public class EmployeeSalaryController:Controller
     {
         private IAppRepository _appRepository;

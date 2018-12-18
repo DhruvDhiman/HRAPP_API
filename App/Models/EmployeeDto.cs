@@ -9,7 +9,8 @@ namespace App.Models
     public class EmployeeDto
     {
         public Guid EmpId { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Location { get; set; }
         public string EmailId { get; set; }
         public double BaseSalary { get; set; }

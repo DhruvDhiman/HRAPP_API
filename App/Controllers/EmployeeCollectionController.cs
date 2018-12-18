@@ -8,10 +8,11 @@ using App.Models;
 using AutoMapper;
 using App.Entities;
 using App.Helpers;
+using Microsoft.AspNetCore.Cors;
 
 namespace App.Controllers
 {
-    [Route("api/employeecollections")]
+    [EnableCors("AllowCors"), Route("api/employeecollections")]
     public class EmployeeCollectionController:Controller
     {
         private IAppRepository _appRepository;

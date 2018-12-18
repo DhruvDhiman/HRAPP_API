@@ -8,10 +8,11 @@ using AutoMapper;
 using App.Models;
 using App.Entities;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 namespace App.Controllers
 {
-    [Route("api/employees")]
+    [EnableCors("AllowCors"), Route("api/employees")]
     public class EmployeesController:Controller
     {
         private IAppRepository _appRepository;

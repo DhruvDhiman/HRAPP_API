@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using App.Entities;
 using Microsoft.EntityFrameworkCore;
 using App.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace App
 {
@@ -28,6 +29,16 @@ namespace App
             // Db connection service
             var connectionString = Configuration["ConnectionStrings:appDBConnectionString"];
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddCors(
+                options => options.AddPolicy("AllowCors",
+                    builder =>
+                        {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod() 
+                                .AllowAnyHeader();
+                        })
+            );
 
             // add mvc services
             services.AddMvc();
@@ -66,8 +77,6 @@ namespace App
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Entities.Employee, Models.EmployeeDto>()
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(
-                        src => src.FirstName + " " + src.LastName))
                     .ForMember(dest => dest.BaseSalary, opt => opt.MapFrom(
                         src => src.EmployeeSalary.BaseSalary))
                     .ForMember(dest => dest.Deduction401, opt => opt.MapFrom(
@@ -82,10 +91,24 @@ namespace App
                 cfg.CreateMap<Models.EmployeeForUpdateDto, Entities.Employee>();
 
                 cfg.CreateMap<Entities.Employee, Models.EmployeeForUpdateDto>();
+
+                cfg.CreateMap<Entities.PayChecks, Models.PayCheckDto>()
+                    .ForMember(dest => dest.FirstName, opt => opt.MapFrom(
+                        src => src.Employee.FirstName))
+                    .ForMember(dest => dest.LastName, opt => opt.MapFrom(
+                        src => src.Employee.LastName));
+
+                cfg.CreateMap<Models.PayCheckForCreationDto, Entities.PayChecks>();
+
             });
             appContext.EnsureSeedData();
-
+            //Enable CORS policy "AllowCors"
+            app.UseCors("AllowCors");
+            //app.UseCors(options => options.AllowAnyOrigin()
+            //                                .AllowAnyMethod()                    
+            //);
             app.UseMvc();
+            
         }
     }
 }

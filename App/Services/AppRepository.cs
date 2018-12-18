@@ -96,14 +96,24 @@ namespace App.Services
             //no implementation reuired
         }
 
-        public void AddPayCheck(PayChecks payChecks)
+        public void AddPayCheck(PayChecks payCheck)
         {
-            throw new NotImplementedException();
+            payCheck.TxnId = Guid.NewGuid();
+            _context.PayChecks.Add(payCheck);
         }
 
         public IEnumerable<PayChecks> GetPayCheck()
         {
-            throw new NotImplementedException();
+            return _context.PayChecks
+                            .Include(p => p.Employee)
+                            .ToList();
+        }
+
+        public PayChecks GetPayCheck(Guid txnId)
+        {
+            return _context.PayChecks
+                            .Include(p => p.Employee)
+                            .FirstOrDefault(p => p.TxnId == txnId);
         }
     }
 }

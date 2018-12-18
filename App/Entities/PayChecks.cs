@@ -11,21 +11,21 @@ namespace App.Entities
         [Key]
         public Guid TxnId { get; set; }
         [Required]
-        public float BaseSalary { get; set; }
+        public double BaseSalary { get; set; }
         [Required]
         public DateTimeOffset TxnDate { get; set; }
         [Required]
-        public float FederalTax { get; set; }
+        public double FederalTax { get; set; }
         [Required]
-        public float StateTax { get; set; }
+        public double StateTax { get; set; }
         [Required]
-        public float Deduction401 { get; set; }
+        public double Deduction401 { get; set; }
         [Required]
-        public float DeductionMedicare { get; set; }
+        public double DeductionMedicare { get; set; }
         [Required]
-        public float DeductionDental { get; set; }
+        public double DeductionDental { get; set; }
         [Required]
-        public float TakeHomSalary { get; set; }
+        public double TakeHomSalary { get; set; }
 
         public Guid EmpId { get; set; }
         public Employee Employee { get; set; }
